@@ -39,7 +39,7 @@ grep -v '^#' $pkg_list_file| while read line ; do
     # Now submitting the job in cbs
     cbs_task_info=$(cbs build --scratch --nowait --noprogress infrastructure${dist}-el${dist} $srpm_tree/${pkg_name}-${epel_ver_dl}.src.rpm|grep Task)
     echo "[+] $(date +%Y%m%d) - Submitted ${pkg_name}-${epel_ver_dl}.src.rpm : ${cbs_task_info}" >> $logfile
-    echo -e "Submitted ${pkg_name}-${epel_ver_dl}.src.rpm : ${cbs_task_info} \n To rebuild with scratch, run : \n cbs build infrastructure${dist}-el${dist} $srpm_tree/${pkg_name}-${epel_ver_dl}.src.rpm"| mail -r ${mail_rcpt} -s "[Infra] new pkg submit : ${pkg_name}-${epel_ver_dl}.src.rpm" ${mail_rcpt}
+    echo -e "Submitted ${pkg_name}-${epel_ver_dl}.src.rpm : ${cbs_task_info} \n To rebuild without scratch, run : \n cbs build infrastructure${dist}-el${dist} $srpm_tree/${pkg_name}-${epel_ver_dl}.src.rpm"| mail -r ${mail_rcpt} -s "[Infra] new pkg submit : ${pkg_name}-${epel_ver_dl}.src.rpm" ${mail_rcpt}
     # Updating now pkg.list
     sed -i "s/${dist}|${pkg_name}|.*/${dist}|${pkg_name}|${epel_ver_dl}/g" pkg.list ${pkg_list_file}
   fi
